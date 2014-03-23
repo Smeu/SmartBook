@@ -1,6 +1,5 @@
 package ro.cyberfire.smartbook.reader;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.JSplitPane;
@@ -24,6 +23,7 @@ public class SplitPane extends JSplitPane {
   private void customize() {
     setUI(customizedDelimitator());
     setBorder(null);
+    setBackground(Theme.backgroundColor);
     setDividerLocation(200);
   }
   
@@ -42,17 +42,16 @@ public class SplitPane extends JSplitPane {
 
           @Override
           public void paint(Graphics g) {
-            setSize(7, getSize().height);
-            g.setColor(Color.GRAY);
+            /*setSize(7, getSize().height);
+            g.setColor(Theme.borderColor);
             g.fillRect(2, 0, 1, getSize().height);
             g.fillRect(4, 0, 1, getSize().height);
             int height = getSize().height;
             height /= 2;
-            g.setColor(Color.blue);
             g.drawRoundRect(0, height - 20, 6, 40, 5, 5);
             g.fillRoundRect(2, height - 10, 3, 20, 3, 3);
 
-            super.paint(g);
+            super.paint(g);*/
           }
 
         };

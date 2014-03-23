@@ -2,6 +2,7 @@ package ro.cyberfire.smartbook.reader;
 
 import java.awt.Dimension;
 import java.awt.Insets;
+import java.util.Map;
 
 import javax.swing.JTextArea;
 
@@ -31,8 +32,8 @@ public class Lesson extends JTextArea {
     return description;
   }
   
-  public void addParagraph(String text){
-    Paragraph.paragraph(text, this);
+  public void addParagraph(String text, Map<KeyString, Lesson> lessons){
+    Paragraph.paragraph(text, this, lessons);
   }
   
   /*
@@ -55,7 +56,7 @@ public class Lesson extends JTextArea {
     setLineWrap(true);
     setWrapStyleWord(true);
     setEditable(false);
-   // setBackground(Color.GRAY);
+    setBackground(Theme.backgroundColor);
     setLayout(new WrapLayout(WrapLayout.LEFT));
     setMargin(new Insets(20, 20, 20, 20));
     setForeground(getBackground());

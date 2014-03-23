@@ -23,6 +23,9 @@ public class Tree extends JTree {
 
   private void preferences() {
     setRootVisible(false);
+    setBackground(Theme.backgroundColor);
+    //setBorder(new BubbleBorder(preserveBackgroundColor, expandRow, expandRow, expandRow));
+    
     addTreeSelectionListener(new TreeSelectionListener() {
       
       @Override

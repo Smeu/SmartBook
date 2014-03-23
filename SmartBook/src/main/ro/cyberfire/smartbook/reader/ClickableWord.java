@@ -11,15 +11,22 @@ public class ClickableWord extends JLabel {
 
   private static final long serialVersionUID = 7258486796110202404L;
   private ToolTip m_tooltip;
+  private static ScrollPane scrollPane;
+  private Lesson lesson;
   
-  public ClickableWord(String text) {
+  public static void setScrollPane (ScrollPane scrollPanel){
+    scrollPane = scrollPanel;
+  }
+  
+  public ClickableWord(String text, Lesson aLesson) {
     super(text);
+    this.lesson = aLesson;
     setForeground(Color.blue);
     
     addMouseListener(new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent arg0) {
-        System.out.println("Label Clicked!");
+        scrollPane.setViewportView(lesson);
       }
     });
   }  

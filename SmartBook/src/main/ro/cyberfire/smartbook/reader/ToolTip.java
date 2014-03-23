@@ -29,6 +29,8 @@ public class ToolTip extends JToolTip {
 
   private void preferences() {
     panel = new JTextArea();
+    panel.setBackground(Theme.backgroundColor);
+    panel.setBorder(new BubbleBorder(Theme.borderColor,2,16,16, Theme.backgroundColor));
     panel.setMaximumSize(new Dimension(200, 100000));
     panel.setPreferredSize(new Dimension(200, 100));
     panel.setMargin(new Insets(5, 5, 5, 10));
@@ -36,7 +38,12 @@ public class ToolTip extends JToolTip {
     panel.setWrapStyleWord(true);
     panel.setEditable(false);
   }
-
+  
+  @Override
+  public void paint(java.awt.Graphics g) {
+    panel.paint(g);
+  };
+  
   @Override
   public void setVisible(boolean aFlag) {
     super.setVisible(true);

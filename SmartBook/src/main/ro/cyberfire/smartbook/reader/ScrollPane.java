@@ -14,10 +14,10 @@ public class ScrollPane extends JScrollPane{
   }
 
   private void customize() {
-  //  AbstractBorder border = new BubbleBorder(Color.BLACK,2,16,16);
-  //  setBorder(border);
-    //setLayout(new WrapLayout(WrapLayout.LEFT));
+    setBorder(new BubbleBorder(Theme.borderColor,2,16,16));
     //);
+    setBackground(Theme.backgroundColor);
+    
     setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
   }
   
