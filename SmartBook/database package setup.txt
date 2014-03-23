@@ -1,0 +1,3 @@
+Am niste pachete facute dar voi teoretic nu trebe sa lucrati decat cu DatabaseManager. Metodele de select din pacate nu am mai avut putere sa le pun si in DatabaseManager asa ca trebe sa le apelati databaseManager.QueryDriver (imi cer scuze ca nu e chiar placut) .Aveti grija ca la Capitole si Lectii , numele acestora trebuie sa fie unice, deci am facut si doua metode pt asta. Daca mai aveti intrebari puneti.
+
+Trebuie sa va puneti in proiect si libraria sqlite-jdbc-3.7.2.jar.
