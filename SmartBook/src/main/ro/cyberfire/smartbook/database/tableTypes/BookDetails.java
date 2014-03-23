@@ -40,9 +40,9 @@ public class BookDetails {
   public void setDescription(String description) {
     this.description = description;
   }
-  
+
   @Override
   public String toString() {
-    return name;
+    return this.name;
   }
 }

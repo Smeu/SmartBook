@@ -7,11 +7,6 @@ public class Paragraph {
   private ParagraphType type;
   private String name;
   private String text;
-  private static int id = 1000000;
-
-  public static int getId() {
-    return ++id;
-  }
 
   public Paragraph(int idParagraph, int idLesson, int indexOrder) {
     this.idParagraph = idParagraph;
@@ -69,5 +64,10 @@ public class Paragraph {
 
   public void setText(String text) {
     this.text = text;
+  }
+
+  @Override
+  public String toString() {
+    return this.name;
   }
 }

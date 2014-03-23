@@ -64,4 +64,10 @@ public class Anchor {
   public void setLinkText(String linkText) {
     this.linkText = linkText;
   }
+
+  @Override
+  public String toString() {
+    return this.text;
+  }
+
 }

@@ -23,7 +23,7 @@ public class SmartBook {
 
   public SmartBook() {
     UIManager.put("Tree.rendererFillBackground", false);
-   // faObazaDeDate();
+    //faObazaDeDate();
     frame = new Frame();
     ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
     JLabel jabel = new JLabel("Text");
@@ -59,14 +59,14 @@ public class SmartBook {
     db.insertParagraph("Lesson1.1", 0, ParagraphType.Definitie, "paragraf1", "si acum prezentam cum <ref Lesson2.1 > asta (asta multiplu) <ref> este un button catre Lesson2.1");
     db.insertParagraph("Lesson2.1", 0, ParagraphType.Definitie, "paragraf1", "definitia nr 3");
     db.insertParagraph("Lesson1.2", 0, ParagraphType.Definitie, "paragraf1", "definitia nr 4");
-    db.insertParagraph("Lesson1.1", 0, ParagraphType.Definitie, "paragraf1", "definitia nr 5");
+    db.insertParagraph("Lesson1.1", 0, ParagraphType.Definitie, "paragraf1", "definitia nr 5 cu o poza <img res/smartBook.jpg >");
     db.insertParagraph("Lesson1.1", 0, ParagraphType.Definitie, "paragraf1", "definitia nr 6");
-  }
-*/
+  }*/
+
   private void ocupateDeBazaDeDate(DefaultMutableTreeNode root) {
     DefaultMutableTreeNode book;
 
-    DatabaseManager db = new DatabaseManager("CartePeBune.db");
+    DatabaseManager db = new DatabaseManager("res/Caaarte.db");
     BookDetails bk = new BookDetails();
     bk = db.queryDriver.getBookDetails();
 

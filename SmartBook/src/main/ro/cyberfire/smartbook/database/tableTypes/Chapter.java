@@ -3,11 +3,6 @@ package ro.cyberfire.smartbook.database.tableTypes;
 public class Chapter {
   private String name;
   private String description;
-  private static int id = 0;
-  
-  public static int getId(){
-    return ++id;
-  }
 
   public Chapter(String name, String description) {
     this.name = name;
@@ -39,9 +34,9 @@ public class Chapter {
   public void setDescription(String description) {
     this.description = description;
   }
-  
+
   @Override
   public String toString() {
-    return name;
+    return this.name;
   }
 }

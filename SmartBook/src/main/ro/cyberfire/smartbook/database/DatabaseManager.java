@@ -77,7 +77,7 @@ public class DatabaseManager {
     try {
       stmt = connection.createStatement();
       String sql = "CREATE TABLE Chapters ";
-      sql += "(ID_Chapter INT PRIMARY KEY NOT NULL, Name VARCHAR, Description TEXT)";
+      sql += "(ID_Chapter INTEGER PRIMARY KEY AUTOINCREMENT, Name VARCHAR, Description TEXT)";
       stmt.executeUpdate(sql);
       stmt.close();
     }
@@ -93,7 +93,7 @@ public class DatabaseManager {
     try {
       stmt = connection.createStatement();
       String sql = "CREATE TABLE Lessons ";
-      sql += "(ID_Lesson INT PRIMARY KEY NOT NULL, ID_Chapter INT NOT NULL, Name VARCHAR, Description TEXT)";
+      sql += "(ID_Lesson INTEGER PRIMARY KEY AUTOINCREMENT, ID_Chapter INT NOT NULL, Name VARCHAR, Description TEXT)";
       stmt.executeUpdate(sql);
       stmt.close();
     }
@@ -109,7 +109,7 @@ public class DatabaseManager {
     try {
       stmt = connection.createStatement();
       String sql = "CREATE TABLE Paragraphs ";
-      sql += "(ID_Paragraph INT PRIMARY KEY NOT NULL, ID_Lesson INT NOT NULL, IndexOrder INT NOT NULL, Type VARCHAR, Name VARCHAR, Text TEXT)";
+      sql += "(ID_Paragraph INTEGER PRIMARY KEY AUTOINCREMENT, ID_Lesson INT NOT NULL, IndexOrder INT NOT NULL, Type VARCHAR, Name VARCHAR, Text TEXT)";
       stmt.executeUpdate(sql);
       stmt.close();
     }

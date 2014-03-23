@@ -3,6 +3,8 @@ package ro.cyberfire.smartbook.reader;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
@@ -18,7 +20,7 @@ public class Paragraph {
 
   }
 
-  private static JLabel label(StringTokenizer splitStringTokenizer, Map<KeyString, Lesson> lessons) {
+  private static JComponent label(StringTokenizer splitStringTokenizer, Map<KeyString, Lesson> lessons) {
     String text = splitStringTokenizer.nextToken().toString();
     if (text.contains("<ref")){
       String toolTip = lessonName(splitStringTokenizer);
@@ -35,6 +37,17 @@ public class Paragraph {
         word.setToolTipText(lesson.getDescription());
       
       return word;
+    }
+    if (text.contains("<img")){
+      String path = splitStringTokenizer.nextToken().toString();
+      if (path.endsWith(">")){
+        path = path.substring(0, path.length() - 1);
+      }else{
+        splitStringTokenizer.nextToken();
+      }
+      JLabel image = new JLabel();
+      image.setIcon(new ImageIcon("res/" + path));
+      return image;
     }
     
     return new JLabel(text); 

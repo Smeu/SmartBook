@@ -58,7 +58,7 @@ public class QueryDriver {
     try {
       connection.setAutoCommit(false);
       stmt = connection.createStatement();
-      ResultSet rs = stmt.executeQuery("SELECT ID_Paragraph FROM Chapters WHERE Name = '" + pharagraphName + "';");
+      ResultSet rs = stmt.executeQuery("SELECT ID_Paragraph FROM Paragraphs WHERE Name = '" + pharagraphName + "';");
       while (rs.next()) {
         id = rs.getInt("ID_Paragraph");
       }
@@ -77,7 +77,7 @@ public class QueryDriver {
     try {
       connection.setAutoCommit(false);
       stmt = connection.createStatement();
-      ResultSet rs = stmt.executeQuery("SELECT ID_Paragraph FROM Chapters WHERE indexOrder = " + indexOrder + ";");
+      ResultSet rs = stmt.executeQuery("SELECT ID_Paragraph FROM Paragraphs WHERE indexOrder = " + indexOrder + ";");
       while (rs.next()) {
         id = rs.getInt("ID_Paragraph");
       }
@@ -209,7 +209,7 @@ public class QueryDriver {
     try {
       connection.setAutoCommit(false);
       stmt = connection.createStatement();
-      ResultSet rs = stmt.executeQuery("SELECT * FROM Paragraphs;");
+      ResultSet rs = stmt.executeQuery("SELECT * FROM Dictionary;");
       while (rs.next()) {
         Anchor a = new Anchor(rs.getInt("ID_Paragraph"), rs.getInt("ID_Lesson"), rs.getString("Text"),
             rs.getInt("Link_ID_Paragraph"), rs.getInt("Link_ID_Lesson"));
@@ -289,7 +289,7 @@ public class QueryDriver {
     try {
       connection.setAutoCommit(false);
       stmt = connection.createStatement();
-      ResultSet rs = stmt.executeQuery("SELECT ID_Chapter, Name, Description FROM Chapters WHERE ID_Lesson = "
+      ResultSet rs = stmt.executeQuery("SELECT ID_Chapter, Name, Description FROM Lessons WHERE ID_Lesson = "
           + idLesson + ";");
       while (rs.next()) {
         lesson.setIdChapter(rs.getInt("ID_Chapter"));
@@ -311,7 +311,7 @@ public class QueryDriver {
     try {
       connection.setAutoCommit(false);
       stmt = connection.createStatement();
-      ResultSet rs = stmt.executeQuery("SELECT ID_Lesson, IndexOrder, Type, Name, Text FROM Chapters WHERE ID_Paragraph = "
+      ResultSet rs = stmt.executeQuery("SELECT ID_Lesson, IndexOrder, Type, Name, Text FROM Paragraphs WHERE ID_Paragraph = "
           + idParagraph + ";");
       while (rs.next()) {
         paragraph.setIdLesson(rs.getInt("ID_Lesson"));
