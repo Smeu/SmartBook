@@ -2,6 +2,9 @@ package ro.cyberfire.smartbook.database;
 
 import java.sql.*;
 
+import ro.cyberfire.smartbook.database.tableTypes.Chapter;
+import ro.cyberfire.smartbook.database.tableTypes.Lesson;
+import ro.cyberfire.smartbook.database.tableTypes.Paragraph;
 import ro.cyberfire.smartbook.database.tableTypes.ParagraphType;
 
 public class InsertDriver {
@@ -51,8 +54,8 @@ public class InsertDriver {
     try {
       connection.setAutoCommit(false);
       stmt = connection.createStatement();
-      String sql = "INSERT INTO Chapters (Name,Description) ";
-      sql += "VALUES ('" + name + "' , '" + description + "');";
+      String sql = "INSERT INTO Chapters (ID_Chapter,Name,Description) ";
+      sql += "VALUES ('" + Chapter.getId() + "', '" + name + "' , '" + description + "');";
       stmt.executeUpdate(sql);
       stmt.close();
       connection.commit();
@@ -68,13 +71,15 @@ public class InsertDriver {
     try {
       connection.setAutoCommit(false);
       stmt = connection.createStatement();
-      String sql = "INSERT INTO Lessons (ID_Chapter,Name,Description) ";
-      sql += "VALUES (" + idChapter + " , '" + name + "', '" + description + "');";
+      String sql = "INSERT INTO Lessons (ID_Lesson,ID_Chapter,Name,Description) ";
+      sql += "VALUES ('"+ Lesson.getId() + "', '" + idChapter + "' , '" + name + "', '" + description + "');";
       stmt.executeUpdate(sql);
       stmt.close();
       connection.commit();
+      System.out.println("a creat Lectia");
     }
     catch (Exception e) {
+      
       System.err.println(e.getClass().getName() + ": " + e.getMessage());
     }
   }
@@ -85,8 +90,8 @@ public class InsertDriver {
     try {
       connection.setAutoCommit(false);
       stmt = connection.createStatement();
-      String sql = "INSERT INTO Paragraphs (ID_Lesson,IndexOrder,Type,Name,Text) ";
-      sql += "VALUES (" + idLesson + " , " + indexOrder + ", '" + type + "', '" + name + "', '" + text + "');";
+      String sql = "INSERT INTO Paragraphs (ID_Paragraph,ID_Lesson,IndexOrder,Type,Name,Text) ";
+      sql += "VALUES (" + Paragraph.getId() + "," + idLesson + " , " + indexOrder + ", '" + type + "', '" + name + "', '" + text + "');";
       stmt.executeUpdate(sql);
       stmt.close();
       connection.commit();

@@ -4,6 +4,11 @@ public class Lesson {
   private String name;
   private String description;
   private int idChapter;
+  private static int id = 1000;
+  
+  public static int getId(){
+    return ++id;
+  }
 
   public Lesson(String name, String description, int idChapter) {
     this.name = name;
@@ -51,5 +56,10 @@ public class Lesson {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+  
+  @Override
+  public String toString() {
+    return name;
   }
 }

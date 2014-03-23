@@ -39,7 +39,7 @@ public class QueryDriver {
     try {
       connection.setAutoCommit(false);
       stmt = connection.createStatement();
-      ResultSet rs = stmt.executeQuery("SELECT ID_Lesson FROM Chapters WHERE Name = '" + lessonName + "';");
+      ResultSet rs = stmt.executeQuery("SELECT ID_Lesson FROM Lessons WHERE Name = '" + lessonName + "';");
       while (rs.next()) {
         id = rs.getInt("ID_Lesson");
       }
