@@ -66,7 +66,7 @@ public class SmartBook {
   private void ocupateDeBazaDeDate(DefaultMutableTreeNode root) {
     DefaultMutableTreeNode book;
 
-    DatabaseManager db = new DatabaseManager("res/Caaarte.db");
+    DatabaseManager db = new DatabaseManager("res/Carte.db");
     BookDetails bk = new BookDetails();
     bk = db.queryDriver.getBookDetails();
 
