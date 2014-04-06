@@ -2,7 +2,7 @@ package ro.cyberfire.smartbook.reader;
 
 import javax.swing.JScrollPane;
 
-public class ScrollPane extends JScrollPane{
+public class ScrollPane extends JScrollPane {
 
   /**
    * 
@@ -14,13 +14,11 @@ public class ScrollPane extends JScrollPane{
   }
 
   private void customize() {
-    setBorder(new BubbleBorder(Theme.borderColor,2,16,16));
-    //);
+    setBorder(new BubbleBorder(Theme.borderColor, 2, 16, 16));
+    // );
     setBackground(Theme.backgroundColor);
-    
+
     setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
   }
-  
-  
 
 }

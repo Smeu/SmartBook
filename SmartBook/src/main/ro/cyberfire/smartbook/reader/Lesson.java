@@ -6,9 +6,16 @@ import java.util.Map;
 
 import javax.swing.JTextArea;
 
+/**
+ * Contains a lesson, which represent a division of a chapter. It's represented as a personalized JTextArea. Consists of
+ * multiple paragraphs.
+ * 
+ * @author Rares
+ * 
+ */
 public class Lesson extends JTextArea {
 
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 6327711909606805481L;
   private String name;
   private String description;
   private WrapLayout layout = new WrapLayout(WrapLayout.LEFT);
@@ -31,6 +38,12 @@ public class Lesson extends JTextArea {
     return description;
   }
 
+  /**
+   * Add's a new paragraph for this this lesson.
+   * 
+   * @param text The text of the paragraph.
+   * @param lessons Lessons map for connection with clickable words.
+   */
   public void addParagraph(String text, Map<KeyString, Lesson> lessons) {
     Paragraph.paragraph(text, this, lessons);
   }
@@ -40,12 +53,6 @@ public class Lesson extends JTextArea {
     return layout.preferredLayoutSize(this);
   };
 
-  /*
-   * @Override public Dimension getMinimumSize() { return new Dimension(300, 300); };
-   * 
-   * @Override public Dimension getMaximumSize(){ return new Dimension(300, 300); }
-   */
-
   private void customize() {
     setLineWrap(true);
     setWrapStyleWord(true);
@@ -54,6 +61,7 @@ public class Lesson extends JTextArea {
     setLayout(layout);
     setMargin(new Insets(20, 20, 20, 20));
     setForeground(getBackground());
+
   }
 
   @Override

@@ -1,19 +1,19 @@
 package ro.cyberfire.smartbook.reader;
 
-public class KeyString{
-  
+/**
+ * String key for hash maps.
+ * 
+ * @author Rares
+ * 
+ */
+public class KeyString {
+
   String key;
-  
+
   public KeyString(String key) {
     this.key = key;
   }
-  
-/*  @Override
-  public boolean equals(Object obj) {
-    return key.contains(obj.toString());
-  }*/
-  
-  
+
   @Override
   public int hashCode() {
     final int prime = 31;

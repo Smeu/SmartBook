@@ -8,23 +8,36 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
+/**
+ * A paragraph that consists of labels.
+ * 
+ * @author Rares
+ * 
+ */
 public class Paragraph {
 
+  /**
+   * Add the text as a series of Labels to the textarea.
+   * 
+   * @param text
+   * @param textArea
+   * @param lessons
+   */
   public static void paragraph(String text, JTextArea textArea, Map<KeyString, Lesson> lessons) {
+    // TODO try to add this to a container and that container to text area.
     StringTokenizer splitStringTokenizer = new StringTokenizer(text, " ");
+    textArea.add(simpleJLabel("    "));
     while (splitStringTokenizer.hasMoreTokens()) {
       textArea.add(label(splitStringTokenizer, lessons));
     }
     String spaces = "                                                                                                                                                                                                                                      ";
-    textArea.add(new JLabel(spaces + spaces + spaces + spaces));
-
+    textArea.add(simpleJLabel(spaces + spaces + spaces + spaces));
   }
 
   private static JComponent label(StringTokenizer splitStringTokenizer, Map<KeyString, Lesson> lessons) {
     String text = splitStringTokenizer.nextToken().toString();
     if (text.contains("<ref")) {
       String toolTip = lessonName(splitStringTokenizer);
-      // splitStringTokenizer.nextToken();
       text = splitStringTokenizer.nextToken().toString();
       String part = splitStringTokenizer.nextToken().toString();
       while (!part.contains("<ref>")) {
@@ -50,8 +63,13 @@ public class Paragraph {
       image.setIcon(new ImageIcon("res/" + path));
       return image;
     }
+    return simpleJLabel(text);
+  }
 
-    return new JLabel(text);
+  private static JLabel simpleJLabel(String text) {
+    JLabel label = new JLabel(text);
+    label.setFont(Theme.font);
+    return label;
   }
 
   private static String lessonName(StringTokenizer splitStringTokenizer) {

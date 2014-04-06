@@ -21,6 +21,11 @@ public class ClickableWord extends JLabel {
   private static ScrollPane scrollPane;
   private Lesson lesson;
 
+  /**
+   * The scroll which button action will be applied to.
+   * 
+   * @param scrollPanel
+   */
   public static void setScrollPane(ScrollPane scrollPanel) {
     scrollPane = scrollPanel;
   }
@@ -32,12 +37,15 @@ public class ClickableWord extends JLabel {
    */
   public ClickableWord(String text, Lesson aLesson) {
     super(text);
+    setFont(Theme.font);
     this.lesson = aLesson;
     setForeground(Color.blue);
 
     addMouseListener(new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent arg0) {
+        lesson.setBackground(Theme.backgroundColor);
+        lesson.setFont(Theme.font);
         scrollPane.setViewportView(lesson);
       }
     });
