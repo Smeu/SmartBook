@@ -36,11 +36,11 @@ public class Paragraph {
 
   private static JComponent label(StringTokenizer splitStringTokenizer, Map<KeyString, Lesson> lessons) {
     String text = splitStringTokenizer.nextToken().toString();
-    if (text.contains("<ref")) {
+    if (text.contains("{ref")) {
       String toolTip = lessonName(splitStringTokenizer);
       text = splitStringTokenizer.nextToken().toString();
       String part = splitStringTokenizer.nextToken().toString();
-      while (!part.contains("<ref>")) {
+      while (!part.contains("{ref}")) {
         text = text + " " + part;
         part = splitStringTokenizer.nextToken().toString();
       }
@@ -51,9 +51,9 @@ public class Paragraph {
 
       return word;
     }
-    if (text.contains("<img")) {
+    if (text.contains("{img")) {
       String path = splitStringTokenizer.nextToken().toString();
-      if (path.endsWith(">")) {
+      if (path.endsWith("}")) {
         path = path.substring(0, path.length() - 1);
       }
       else {
@@ -75,7 +75,7 @@ public class Paragraph {
   private static String lessonName(StringTokenizer splitStringTokenizer) {
     String name = splitStringTokenizer.nextToken().toString();
     String part = splitStringTokenizer.nextToken().toString();
-    while (!part.contains(">")) {
+    while (!part.contains("}")) {
       name = name + " " + part;
       part = splitStringTokenizer.nextToken().toString();
     }

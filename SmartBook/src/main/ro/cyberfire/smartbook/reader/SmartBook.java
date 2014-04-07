@@ -15,7 +15,6 @@ import java.util.Map;
 import javax.swing.JColorChooser;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -24,43 +23,61 @@ import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import org.jdom2.Document;
+import org.jdom2.Element;
+
 import ro.cyberfire.smartbook.database.DatabaseManager;
 import ro.cyberfire.smartbook.database.tableTypes.BookDetails;
 import ro.cyberfire.smartbook.database.tableTypes.Chapter;
+import ro.cyberfire.smartbook.xml.SmartBookXMLTags;
+import ro.cyberfire.smartbook.xml.XMLFile;
 
+/**
+ * Class for SmartBook. Creates a window using swing components. Take information from xml files and shows them.
+ * 
+ * @author Rares
+ * 
+ */
 public class SmartBook {
 
   private Frame frame;
   private SplitPane splitPane;
   private ScrollPane rightScrollPane;
   private ScrollPane leftScrollPane;
+  private Tree tree;
   private Map<KeyString, Lesson> lessons = new HashMap<>();
 
   public SmartBook() {
-    UIManager.put("Tree.rendererFillBackground", false);
-    // faObazaDeDate();
-    frame = new Frame();
-    ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
-    JLabel jabel = new JLabel("Text");
-    jabel.setToolTipText("tooltip");
+    initComponents();
+    initWithBookInformation();
+    connectComponents();
+    addMenuBar();
+  }
 
+  private void initComponents() {
+    ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
+    UIManager.put("Tree.rendererFillBackground", false);
+    frame = new Frame();
     splitPane = new SplitPane();
     rightScrollPane = new ScrollPane();
-    ClickableWord.setScrollPane(rightScrollPane);
     leftScrollPane = new ScrollPane();
-    frame.add(splitPane);
+    ClickableWord.setScrollPane(rightScrollPane);
+  }
 
-    splitPane.setRightComponent(rightScrollPane);
-
+  private void initWithBookInformation() {
     DefaultMutableTreeNode root = new DefaultMutableTreeNode();
-    ocupateDeBazaDeDate(root);
-    Tree tree = new Tree(root, rightScrollPane);
+    // ocupateDeBazaDeDate(root);
+    takeDataFromXmlFile(root, "res/book.xml");
+    tree = new Tree(root, rightScrollPane);
+  }
 
+  private void connectComponents() {
+    frame.add(splitPane);
+    splitPane.setRightComponent(rightScrollPane);
     rightScrollPane.setViewportView(new Lesson("a", "b"));
     leftScrollPane.setViewportView(tree);
     splitPane.setLeftComponent(leftScrollPane);
 
-    addMenuBar();
   }
 
   private void componentPreferences(JComponent component) {
@@ -199,6 +216,49 @@ public class SmartBook {
    * "paragraf1", "definitia nr 6"); }
    */
 
+  private void takeDataFromXmlFile(DefaultMutableTreeNode root, String filePath) {
+    DefaultMutableTreeNode book;
+    Document document = XMLFile.getDocument(filePath);
+
+    book = new DefaultMutableTreeNode(document.getRootElement().getAttributeValue(SmartBookXMLTags.NAME));
+    root.add(book);
+
+    addChaptersFromXML(book, document.getRootElement());
+  }
+
+  private void addChaptersFromXML(DefaultMutableTreeNode root, Element book) {
+    List<Element> chapters = book.getChildren(SmartBookXMLTags.CHAPTER);
+    for (Element chapter : chapters) {
+      DefaultMutableTreeNode chapterNode = new DefaultMutableTreeNode(chapter.getAttributeValue(SmartBookXMLTags.NAME));
+      root.add(chapterNode);
+      addLessonsFromXML(chapterNode, chapter);
+    }
+
+  }
+
+  private void addLessonsFromXML(DefaultMutableTreeNode chapterNode, Element chapter) {
+    List<Element> lessons = chapter.getChildren(SmartBookXMLTags.LESSON);
+    for (Element lesson : lessons) {
+      String lessonName = lesson.getAttributeValue(SmartBookXMLTags.NAME);
+      Lesson textAreaLesson = new Lesson(lessonName, lesson.getChildText(SmartBookXMLTags.DESCRIPTION));
+      DefaultMutableTreeNode lessonNode = new DefaultMutableTreeNode(textAreaLesson);
+      chapterNode.add(lessonNode);
+
+      this.lessons.put(new KeyString(lessonName), textAreaLesson);
+      addParagraphsFromXML(textAreaLesson, lesson);
+
+    }
+
+  }
+
+  private void addParagraphsFromXML(Lesson textAreaLesson, Element lesson) {
+    List<Element> paragraphs = lesson.getChildren(SmartBookXMLTags.PARAGRAPH);
+    for (Element paragraph : paragraphs) {
+      textAreaLesson.addParagraph(paragraph.getText(), lessons);
+    }
+  }
+
+  @SuppressWarnings("unused")
   private void ocupateDeBazaDeDate(DefaultMutableTreeNode root) {
     DefaultMutableTreeNode book;
 
@@ -211,7 +271,6 @@ public class SmartBook {
 
     addLessonsInMap(db);
     addChapters(book, db);
-
   }
 
   private void addLessonsInMap(DatabaseManager db) {
