@@ -14,7 +14,7 @@ import java.awt.geom.RoundRectangle2D;
 
 import javax.swing.border.AbstractBorder;
 
-class BubbleBorder extends AbstractBorder {
+public class BubbleBorder extends AbstractBorder {
 
   private static final long serialVersionUID = -4253314517130521621L;
 
@@ -30,11 +30,11 @@ class BubbleBorder extends AbstractBorder {
   RenderingHints hints;
   private Color parentBG;
 
-  BubbleBorder(Color color) {
+  public BubbleBorder(Color color) {
     new BubbleBorder(color, 4, 8, 7);
   }
 
-  BubbleBorder(Color color, int thickness, int radii, int pointerSize) {
+  public BubbleBorder(Color color, int thickness, int radii, int pointerSize) {
     this.thickness = thickness;
     this.radii = radii;
     this.pointerSize = pointerSize;
@@ -50,12 +50,12 @@ class BubbleBorder extends AbstractBorder {
     insets = new Insets(pad, pad, pad, pad);
   }
 
-  BubbleBorder(Color color, int thickness, int radii, int pointerSize, boolean left) {
+  public BubbleBorder(Color color, int thickness, int radii, int pointerSize, boolean left) {
     this(color, thickness, radii, pointerSize);
     this.left = left;
   }
 
-  BubbleBorder(Color color, int thickness, int radii, int pointerSize, Color bg) {
+  public BubbleBorder(Color color, int thickness, int radii, int pointerSize, Color bg) {
     this(color, thickness, radii, pointerSize);
     parentBG = bg;
   }

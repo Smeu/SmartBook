@@ -26,9 +26,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import org.jdom2.Document;
 import org.jdom2.Element;
 
-import ro.cyberfire.smartbook.database.DatabaseManager;
-import ro.cyberfire.smartbook.database.tableTypes.BookDetails;
-import ro.cyberfire.smartbook.database.tableTypes.Chapter;
 import ro.cyberfire.smartbook.xml.SmartBookXMLTags;
 import ro.cyberfire.smartbook.xml.XMLFile;
 
@@ -42,12 +39,14 @@ public class SmartBook {
 
   private Frame frame;
   private SplitPane splitPane;
-  private ScrollPane rightScrollPane;
-  private ScrollPane leftScrollPane;
-  private Tree tree;
+  protected ScrollPane rightScrollPane;
+  protected ScrollPane leftScrollPane;
+  protected Tree tree;
   private Map<KeyString, Lesson> lessons = new HashMap<>();
+  private String filePath;
 
-  public SmartBook() {
+  public SmartBook(String filePath) {
+    this.filePath = filePath;
     initComponents();
     initWithBookInformation();
     connectComponents();
@@ -67,7 +66,7 @@ public class SmartBook {
   private void initWithBookInformation() {
     DefaultMutableTreeNode root = new DefaultMutableTreeNode();
     // ocupateDeBazaDeDate(root);
-    takeDataFromXmlFile(root, "res/book.xml");
+    takeDataFromXmlFile(root, filePath);
     tree = new Tree(root, rightScrollPane);
   }
 
@@ -135,11 +134,11 @@ public class SmartBook {
       @Override
       public void actionPerformed(ActionEvent e) {
         String input = JOptionPane.showInputDialog("Insert size: ");
-        if (!input.matches("[0-9]+")) {
-          JOptionPane.showMessageDialog(new JFrame(), "Bad input");
+        if (input == null || input.length() == 0) {
           return;
         }
-        if (input == null || input.length() == 0) {
+        if (!input.matches("[0-9]+")) {
+          JOptionPane.showMessageDialog(new JFrame(), "Bad input");
           return;
         }
         int size = Integer.parseInt(input);
@@ -170,7 +169,10 @@ public class SmartBook {
     // add menus to menu bar
     menuBar.add(themeMenu);
 
+    // add back button
+    menuBar.add(History.setButton(rightScrollPane));
     frame.setJMenuBar(menuBar);
+
   }
 
   private void restart() {
@@ -186,11 +188,9 @@ public class SmartBook {
     final String javaBin = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
     final File currentJar = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
 
-    /* is it a jar file? */
     if (!currentJar.getName().endsWith(".jar"))
       return;
 
-    /* Build command: java -jar application.jar */
     final ArrayList<String> command = new ArrayList<String>();
     command.add(javaBin);
     command.add("-jar");
@@ -258,66 +258,57 @@ public class SmartBook {
     }
   }
 
-  @SuppressWarnings("unused")
-  private void ocupateDeBazaDeDate(DefaultMutableTreeNode root) {
-    DefaultMutableTreeNode book;
+  // Old data base;
+  /*
+   * @SuppressWarnings("unused") private void ocupateDeBazaDeDate(DefaultMutableTreeNode root) { DefaultMutableTreeNode
+   * book;
+   * 
+   * DatabaseManager db = new DatabaseManager("res/Carte.db"); BookDetails bk = new BookDetails(); bk =
+   * db.queryDriver.getBookDetails();
+   * 
+   * book = new DefaultMutableTreeNode(bk); root.add(book);
+   * 
+   * addLessonsInMap(db); addChapters(book, db); }
+   * 
+   * private void addLessonsInMap(DatabaseManager db) { List<ro.cyberfire.smartbook.database.tableTypes.Lesson> lessons
+   * = db.queryDriver.getAllLessons(); for (ro.cyberfire.smartbook.database.tableTypes.Lesson lesson : lessons) {
+   * this.lessons.put(new KeyString(lesson.getName()), new Lesson(lesson.getName(), lesson.getDescription())); } }
+   * 
+   * private void addChapters(DefaultMutableTreeNode book, DatabaseManager db) { List<Chapter> chapters =
+   * db.queryDriver.getAllChapters(); for (Chapter chapter : chapters) { DefaultMutableTreeNode chapterNode = new
+   * DefaultMutableTreeNode(chapter); book.add(chapterNode); addLesson(chapterNode, db,
+   * db.queryDriver.getID_Chapter(chapter.getName())); } }
+   * 
+   * private void addLesson(DefaultMutableTreeNode chapterNode, DatabaseManager db, int ChapterId) {
+   * List<ro.cyberfire.smartbook.database.tableTypes.Lesson> lessons = db.queryDriver.getAllLessons(); for
+   * (ro.cyberfire.smartbook.database.tableTypes.Lesson lesson : lessons) { if (lesson.getIdChapter() == ChapterId) {
+   * Lesson l = this.lessons.get(new KeyString(lesson.getName())); if (l == null) {
+   * System.out.println("aici e problema"); } // new Lesson(lesson.getName(), lesson.getDescription());
+   * DefaultMutableTreeNode node = new DefaultMutableTreeNode(l); addParagraphs(l, db,
+   * db.queryDriver.getID_Lesson(lesson.getName())); chapterNode.add(node); } } }
+   * 
+   * private void addParagraphs(Lesson lesson, DatabaseManager db, Integer id_Lesson) {
+   * List<ro.cyberfire.smartbook.database.tableTypes.Paragraph> paragraphs = db.queryDriver.getAllPharagraphs(); for
+   * (int i = 0; i < paragraphs.size(); ++i) { if (paragraphs.get(i).getIdLesson() == id_Lesson) {
+   * lesson.addParagraph(paragraphs.get(i).getText(), lessons); } } }
+   */
 
-    DatabaseManager db = new DatabaseManager("res/Carte.db");
-    BookDetails bk = new BookDetails();
-    bk = db.queryDriver.getBookDetails();
-
-    book = new DefaultMutableTreeNode(bk);
-    root.add(book);
-
-    addLessonsInMap(db);
-    addChapters(book, db);
-  }
-
-  private void addLessonsInMap(DatabaseManager db) {
-    List<ro.cyberfire.smartbook.database.tableTypes.Lesson> lessons = db.queryDriver.getAllLessons();
-    for (ro.cyberfire.smartbook.database.tableTypes.Lesson lesson : lessons) {
-      this.lessons.put(new KeyString(lesson.getName()), new Lesson(lesson.getName(), lesson.getDescription()));
-    }
-  }
-
-  private void addChapters(DefaultMutableTreeNode book, DatabaseManager db) {
-    List<Chapter> chapters = db.queryDriver.getAllChapters();
-    for (Chapter chapter : chapters) {
-      DefaultMutableTreeNode chapterNode = new DefaultMutableTreeNode(chapter);
-      book.add(chapterNode);
-      addLesson(chapterNode, db, db.queryDriver.getID_Chapter(chapter.getName()));
-    }
-  }
-
-  private void addLesson(DefaultMutableTreeNode chapterNode, DatabaseManager db, int ChapterId) {
-    List<ro.cyberfire.smartbook.database.tableTypes.Lesson> lessons = db.queryDriver.getAllLessons();
-    for (ro.cyberfire.smartbook.database.tableTypes.Lesson lesson : lessons) {
-      if (lesson.getIdChapter() == ChapterId) {
-        Lesson l = this.lessons.get(new KeyString(lesson.getName()));
-        if (l == null) {
-          System.out.println("aici e problema");
-        }
-        // new Lesson(lesson.getName(), lesson.getDescription());
-        DefaultMutableTreeNode node = new DefaultMutableTreeNode(l);
-        addParagraphs(l, db, db.queryDriver.getID_Lesson(lesson.getName()));
-        chapterNode.add(node);
-      }
-    }
-  }
-
-  private void addParagraphs(Lesson lesson, DatabaseManager db, Integer id_Lesson) {
-    List<ro.cyberfire.smartbook.database.tableTypes.Paragraph> paragraphs = db.queryDriver.getAllPharagraphs();
-    for (int i = 0; i < paragraphs.size(); ++i) {
-      if (paragraphs.get(i).getIdLesson() == id_Lesson) {
-        lesson.addParagraph(paragraphs.get(i).getText(), lessons);
-      }
-    }
-  }
-
-  public void setVisible() {
+  public void setVisible(boolean visibility) {
     frame.pack();
-    frame.setVisible(true);
+    frame.setVisible(visibility);
     frame.setSize(1000, 601);
+  }
+
+  public Tree getTree() {
+    return tree;
+  }
+
+  public Map<KeyString, Lesson> getLessonsMap() {
+    return lessons;
+  }
+
+  public String getFilePath() {
+    return filePath;
   }
 
 }

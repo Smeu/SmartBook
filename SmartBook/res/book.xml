@@ -1,22 +1,22 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <smartbook name="Smart Book">
-	<chapter name="Introducere">
-		<lesson name = "Cartile normale">
-			<paragraph> Incepi sa inveti. Parcurgi fara probleme primele capitole, dar dupa aceea, lucrurile se complica. </paragraph>
-			<paragraph> La ce se referea teorema aia? La formula aceea era -x sau +x? Si asa, pe langa stresul mare, se pierde timp cautand in materia deja parcursa mici detalii. Pierzand timp cautandu-le, iti schimbi ritmul, astfel ajungand la un rezultat greu si obositor. </paragraph>
-			<description>Descriere</description>
-		</lesson>
-		<lesson name= "Ce ne propunem">
-			<paragraph> Noi ne propunem sa cream un mediu cat mai placut de invatare, astfel incat persoana care are nevoie de cunostinte noi sa aiba la indemana toate informatiile, in acelasi loc, organizare cum trebuie pentru a ajunge la un rezultat mai bun. </paragraph>
-			<description>Noi ne-am propus sa cream un mediu de invatare bine organizat care faciliteaza invatarea.</description>
-		</lesson>
-	</chapter>
-	<chapter name="Smart Book">
-		<lesson name="Ce am realizat">
-			<paragraph> Obiectivul nostru nu este doar realizabil, ci chiar realizat. {ref Ce ne propunem } Propunerea noastra {ref} s-a dovedit a fi un mod mult mai facil de a invata sau recapitula. Asadar, dorim sa va prezentam ceea ce noi credem ca ar putea reprezenta o viitoare alternativa pt elevi si studenti </paragraph>
-			<paragraph> Privint catre viitor, ne dam seama ca doar atat nu va fi suficient pentru a revolutiona procesul de invatare. In extinderea aplicatiei ar putea fi adaugate o multime de alte facilitati, un exemplu fiind rezumarea lectiilor in functie de timpul disponibil. </paragraph>
-			<description>descriere</description>
-		</lesson>
-	</chapter>
-
+  <chapter name="Introducere">
+    <lesson name="Cartile normale">
+      <paragraph>Incepi sa inveti. Parcurgi fara probleme primele capitole, dar dupa aceea, lucrurile se complica.</paragraph>
+      <paragraph>La ce se referea teorema aia? La formula aceea era -x sau +x? Si asa, pe langa stresul mare, se pierde timp cautand in materia deja parcursa mici detalii. Pierzand timp cautandu-le, iti schimbi ritmul, astfel ajungand la un rezultat greu si obositor.</paragraph>
+      <description>Descriere</description>
+    </lesson>
+    <lesson name="Ce ne propunem">
+      <paragraph>Noi ne propunem sa cream un mediu cat mai placut de invatare, astfel incat persoana care are nevoie de cunostinte noi sa aiba la indemana toate informatiile, in acelasi loc, organizare cum trebuie pentru a ajunge la un rezultat mai bun.</paragraph>
+      <description>Noi ne-am propus sa cream un mediu de invatare bine organizat care faciliteaza invatarea.</description>
+    </lesson>
+  </chapter>
+  <chapter name="Smart Book">
+    <lesson name="Ce am realizat">
+      <paragraph>Obiectivul nostru nu este doar realizabil, ci chiar realizat. {ref Ce ne propunem } Propunerea noastra {ref} s-a dovedit a fi un mod mult mai facil de a invata sau recapitula. Asadar, dorim sa va prezentam ceea ce noi credem ca ar putea reprezenta o viitoare alternativa pt elevi si studenti</paragraph>
+      <paragraph>Privint catre viitor, ne dam seama ca doar atat nu va fi suficient pentru a revolutiona procesul de invatare. In extinderea aplicatiei ar putea fi adaugate o multime de alte facilitati, un exemplu fiind rezumarea lectiilor in functie de timpul disponibil.</paragraph>
+      <description>descriere</description>
+      <paragraph />
+    </lesson>
+  </chapter>
 </smartbook>

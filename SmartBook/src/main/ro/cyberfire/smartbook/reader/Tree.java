@@ -10,9 +10,13 @@ public class Tree extends JTree {
 
   private static final long serialVersionUID = -8873096309009059458L;
   private ScrollPane rightScrollPane;
-  
+
   public Tree() {
     preferences();
+  }
+
+  public ScrollPane getDisplayPane() {
+    return rightScrollPane;
   }
 
   public Tree(TreeNode node, ScrollPane rightScrollPane) {
@@ -24,20 +28,22 @@ public class Tree extends JTree {
   private void preferences() {
     setRootVisible(false);
     setBackground(Theme.backgroundColor);
-    //setBorder(new BubbleBorder(preserveBackgroundColor, expandRow, expandRow, expandRow));
-    
+    // setBorder(new BubbleBorder(preserveBackgroundColor, expandRow, expandRow, expandRow));
+
     addTreeSelectionListener(new TreeSelectionListener() {
-      
+
       @Override
       public void valueChanged(TreeSelectionEvent e) {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) getLastSelectedPathComponent();
-        
+
         if (node == null)
           return;
-    
+
         Object nodeInfo = node.getUserObject();
         if (node.isLeaf()) {
           rightScrollPane.setViewportView((Lesson) nodeInfo);
+          History.lastLesson.add((Lesson) nodeInfo);
+          History.updateButtonState();
         }
       }
     });

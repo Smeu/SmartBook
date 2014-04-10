@@ -47,6 +47,8 @@ public class ClickableWord extends JLabel {
         lesson.setBackground(Theme.backgroundColor);
         lesson.setFont(Theme.font);
         scrollPane.setViewportView(lesson);
+        History.lastLesson.add(lesson);
+        History.updateButtonState();
       }
     });
   }
